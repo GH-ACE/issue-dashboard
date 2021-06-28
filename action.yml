@@ -5,11 +5,18 @@ inputs:
   config:
     description: The configuration for the dashboards.
     required: true
+  config-type:
+    description: "Provide the scope of the deployment. Valid values are: 'inline', 'file' "
+    required: false
+    default: inline
   token: 
     description: The Personal Authentication Token to use for authentication.
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'lib/main.js'
 branding:
   icon: 'align-left' 
   color: blue
+
+
+  

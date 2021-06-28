@@ -9,7 +9,7 @@ async function run(): Promise<void> {
         const token = core.getInput('token') || process.env.GITHUB_TOKEN || ''
         const github = new GitHub(token)
 
-        const config = AnalyticsConfig.from(core.getInput('config', { required: true }))
+        const config = AnalyticsConfig.from(core.getInput('config', { required: true }),core.getInput('configType', { required: false }))
         const renderer = Renderer.fromConfig(config)
 
         const result = await Analytics.evaluate(config, github)

@@ -8,6 +8,8 @@
 import { QueryType, Analytics, Section, Widget, GraphWidget, TableWidget, QueryTableWidget, NumberWidget, QueryNumberWidget, ScriptNumberWidget, StringWidget, ScriptStringWidget } from './analytics'
 
 import * as yaml from 'js-yaml'
+import * as fs from 'fs';
+
 
 export interface OutputConfig {
     format: string
@@ -340,25 +342,31 @@ export class AnalyticsConfig extends Analytics {
         return AnalyticsConfig.load(yaml.safeLoad(config))
     }
 
-    public static from(config: string): AnalyticsConfig {
+    public static from(config: string, configType:string): AnalyticsConfig {
         enum ConfigFormat { JSON, YAML }
         let format: ConfigFormat
         let input: any
-
-        try {
-            input = JSON.parse(config)
-            format = ConfigFormat.JSON
+        format = ConfigFormat.YAML
+        if(configType === "inline"){
+            //preserving old code
+            try {
+                input = JSON.parse(config)
+                format = ConfigFormat.JSON
+            }
+            catch (e) {
+                input = yaml.safeLoad(config)
+            }
         }
-        catch (e) {
-            input = yaml.safeLoad(config)
-            format = ConfigFormat.YAML
+        else{
+            try{
+                console.log("loading the config yml file")
+                input = yaml.safeLoad(fs.readFileSync(config, 'utf8'))
+                
+            }
+            catch(err){
+                console.log(err)
+            }
         }
-
-        if (format == ConfigFormat.JSON) {
-            return AnalyticsConfig.load(input)
-        }
-        else {
-            return AnalyticsConfig.load(input)
-        }
+        return AnalyticsConfig.load(input)
     }
 }
