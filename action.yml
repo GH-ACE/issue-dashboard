@@ -5,7 +5,7 @@ inputs:
   config:
     description: The configuration for the dashboards.
     required: true
-  config-type:
+  configType:
     description: "Provide the scope of the deployment. Valid values are: 'inline', 'file' "
     required: false
     default: 'inline'
