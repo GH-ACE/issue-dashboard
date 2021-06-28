@@ -347,7 +347,7 @@ export class AnalyticsConfig extends Analytics {
         let format: ConfigFormat
         let input: any
         format = ConfigFormat.YAML
-        if(configType === "inline"){
+        if(configType == 'inline'){
             //preserving old code
             try {
                 input = JSON.parse(config)
@@ -359,7 +359,7 @@ export class AnalyticsConfig extends Analytics {
         }
         else{
             try{
-                console.log("loading the config yml file")
+                console.log('Loading the config yml file')
                 input = yaml.safeLoad(fs.readFileSync(config, 'utf8'))
                 
             }
