@@ -347,6 +347,7 @@ export class AnalyticsConfig extends Analytics {
         let format: ConfigFormat
         let input: any
         format = ConfigFormat.YAML
+        console.log(configType)
         if(configType == 'inline'){
             //preserving old code
             try {
